@@ -4,7 +4,7 @@ const knex = require('../database/knex')
 
 class UsersController {
   async create(req, res) {
-    const { name, email, password, is_admin = false } = req.body
+    const { name, email, password } = req.body
 
     const checkUserExists = await knex('users').where('email', email).first()
 
@@ -18,14 +18,13 @@ class UsersController {
       name,
       email,
       password: hashedPassword,
-      is_admin,
     })
 
     return res.status(201).json()
   }
 
   async update(req, res) {
-    const { name, email, password, old_password, is_admin } = req.body
+    const { name, email, password, old_password } = req.body
     const user_id = req.user.id
 
     const user = await knex('users').where('id', user_id).first()
@@ -59,21 +58,6 @@ class UsersController {
       }
 
       updatedUser.password = await hash(password, 8)
-    }
-
-    if (
-      is_admin !== undefined &&
-      user.id !== req.userId &&
-      !user.is_admin
-    ) {
-      throw new AppError(
-        "Você não tem permissão para atualizar o campo 'is_admin'.",
-        403
-      )
-    }
-
-    if (is_admin !== undefined && user.is_admin) {
-      updatedUser.is_admin = is_admin
     }
 
     updatedUser.updated_at = knex.raw('DATETIME("now")')

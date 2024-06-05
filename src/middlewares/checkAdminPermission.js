@@ -6,7 +6,7 @@ async function checkAdminPermission(req, res, next) {
 
   const user = await knex('users').where({ id: user_id }).first()
 
-  if (!user.is_admin) {
+  if (user.role !== 'admin') {
     throw new AppError(
       'Sua conta não tem permissões de administrador para realizar essa operação.',
       401
