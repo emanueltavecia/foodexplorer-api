@@ -131,7 +131,7 @@ The project has a table of users, one of dishes and one of ingredients. See the 
 
     - GET: a dish (`'/dishes/:id'`)
 
-    -DELETE: a dish (`'/dishes/:id'`)
+    - DELETE: a dish (`'/dishes/:id'`)
 
   - `'/files'`
     - GET: a file (`'/files/:name'`)
