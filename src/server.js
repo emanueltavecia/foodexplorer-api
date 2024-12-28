@@ -18,6 +18,7 @@ app.use(
       'http://localhost:5173',
       'http://127.0.0.1:5173',
       'https://foodexplorer-w.netlify.app',
+      'https://foodexplorer-web-orpin.vercel.app',
     ],
     credentials: true,
   })
@@ -26,13 +27,6 @@ app.use(
 app.use(express.json())
 
 app.use(cookieParser())
-
-app.use(
-  cors({
-    origin: ['http://localhost:5173', 'http://127.0.0.1:5173'],
-    credentials: true,
-  })
-)
 
 app.use('/files', express.static(uploadConfig.UPLOADS_FOLDER))
 
